@@ -93,7 +93,7 @@ rounded-full bg-white text-xs font-bold"
                   Use credits to generate AI notes, diagrams & PDFs.
                 </p>
                 <button
-                  onClick={() => setShowCredits(false)}
+                  onClick={() => {setShowCredits(false); navigate("/pricing")}}
                   className="w-full py-2 rounded-lg bg-gradient-to-br from-white to-gray-200 text-black font-semibold hover:opacity-90"
                 >
                   Buy More Credits
@@ -138,7 +138,7 @@ rounded-full bg-white text-xs font-bold"
             shadow-[0_25px_60px_rgba(0,0,0,0.7)]
             p-4 text-white"
               >
-                <MenuItem text="History" onClick={()=>setShowProfile(false)}/>
+                <MenuItem text="History" onClick={()=>{setShowProfile(false); navigate("/history")}}/>
                 <div className="h-px bg-white/10 mx-3"/>
                 <MenuItem text="sign out" red onClick={handleSignOut}/>
               </motion.div>
