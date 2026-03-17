@@ -39,7 +39,7 @@ bg-clip-text text-transparent"
               className=" mt-6 max-w-xl text-lg
 bg-gradient-to-br  from-gray-700  via-gray-500/80  to-gray-700
 bg-clip-text text-transparent"
-              tyle={{
+              style={{
                 transform: "translateZ(40px)",
                 textShadow: "0 18px 40px rgba(0,0,0,0.25)",
               }}
@@ -48,7 +48,9 @@ bg-clip-text text-transparent"
               and revision-ready content using AI - faster, cleaner and smarter.
             </motion.p>
 
-            <motion.button
+            
+          </motion.div>
+          <motion.button
               onClick={()=>navigate("/notes")}
               whileHover={{
                 scale: 1.07
@@ -63,7 +65,6 @@ bg-clip-text text-transparent"
             >
               Get Started
             </motion.button>
-          </motion.div>
         </div>
 
         <motion.div

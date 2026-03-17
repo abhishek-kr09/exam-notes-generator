@@ -74,7 +74,7 @@ flex items-center gap-2"
 
       <motion.div
         className="mb-12">
-        <TopicForm loading={loading} setResult={setResult} setError={setError} />
+        <TopicForm loading={loading} setResult={setResult} setError={setError} setLoading={setLoading} />
       </motion.div>
 
       {!result && <motion.div whileHover={{ scale: 1.02 }}
