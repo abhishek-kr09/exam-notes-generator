@@ -18,11 +18,24 @@ const cleanMermaidChart = (diagram) => {
     }
     return clean;
 };
-const autoFixBadNodes = (diagram) => {
+
+const autoFixNodes = (diagram) => {
     let index = 0;
-    return diagram.replace(/\[(.*?)\]/g, (_, label) => {
+    const used = new Map();
+    return diagram.replace(/\[(.*?)\]/g, (match, label) => {
+        // normalize label for key
+        const key = label.trim();
+        // reuse same node if label already seen
+        if (used.has(key)) {
+            return used.get(key);
+        }
+
         index++;
-        return `N${index}[${label}]`;
+        const id = `N${index}`;
+        const node = `${id}["${key}"]`;
+
+        used.set(key, node);
+        return node;
     });
 };
 
@@ -34,21 +47,21 @@ function MermaidSetup({ diagram }) {
         if (!diagram || !containerRef.current) return;
 
         const renderDiagram = async () => {
-    try {
-        if (!containerRef.current) return; // Check 1
-        containerRef.current.innerHTML = "";
+            try {
+                if (!containerRef.current) return; // Check 1
+                containerRef.current.innerHTML = "";
 
-        const uniqueId = `mermaid-${Math.random().toString(36).substring(2, 9)}`;
-        const safeChart = autoFixBadNodes(cleanMermaidChart(diagram));
-        const { svg } = await mermaid.render(uniqueId, safeChart);
+                const uniqueId = `mermaid-${Math.random().toString(36).substring(2, 9)}`;
+                const safeChart = autoFixNodes(cleanMermaidChart(diagram));
+                const { svg } = await mermaid.render(uniqueId, safeChart);
 
-        if (containerRef.current) { // Check 2 (Line 52)
-            containerRef.current.innerHTML = svg;
-        }
-    } catch (error) {
-        console.error("Mermaid render failed: ", error);
-    }
-};
+                if (containerRef.current) { // Check 2 (Line 52)
+                    containerRef.current.innerHTML = svg;
+                }
+            } catch (error) {
+                console.error("Mermaid render failed: ", error);
+            }
+        };
 
 
         renderDiagram();
