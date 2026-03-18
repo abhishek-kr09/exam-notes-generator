@@ -141,7 +141,7 @@ bg-white/10 backdrop-blur-lg
 border border-white/20
 placeholder-gray-400
 text-white
-focus: outline-none focus:ring-2 focus:ring-white/30" placeholder="Exam Tpe (e.g. CBSE, JEE, NEET)"
+focus: outline-none focus:ring-2 focus:ring-white/30" placeholder="Exam Type (e.g. CBSE, JEE, NEET)"
         onChange={(e) => setExamType(e.target.value)}
         value={examType}
       />

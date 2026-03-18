@@ -34,22 +34,22 @@ function MermaidSetup({ diagram }) {
         if (!diagram || !containerRef.current) return;
 
         const renderDiagram = async () => {
-            try {
-                containerRef.current.innerHTML = "";
+    try {
+        if (!containerRef.current) return; // Check 1
+        containerRef.current.innerHTML = "";
 
-                const uniqueId = `mermaid-${Math.random()
-                    .toString(36)
-                    .substring(2, 9)}`;
+        const uniqueId = `mermaid-${Math.random().toString(36).substring(2, 9)}`;
+        const safeChart = autoFixBadNodes(cleanMermaidChart(diagram));
+        const { svg } = await mermaid.render(uniqueId, safeChart);
 
-                const safeChart = autoFixBadNodes(cleanMermaidChart(diagram));
+        if (containerRef.current) { // Check 2 (Line 52)
+            containerRef.current.innerHTML = svg;
+        }
+    } catch (error) {
+        console.error("Mermaid render failed: ", error);
+    }
+};
 
-                const { svg } = await mermaid.render(uniqueId, safeChart);
-
-                containerRef.current.innerHTML = svg;
-            } catch (error) {
-                console.error("Mermaid render failed: ", error);
-            }
-        };
 
         renderDiagram();
     }, [diagram]);
