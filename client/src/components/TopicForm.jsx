@@ -151,7 +151,7 @@ focus: outline-none focus:ring-2 focus:ring-white/30" placeholder="Exam Tpe (e.g
 
         <Toggle label="Include Diagram" checked={includeDiagram} onChange={() => setIncludeDiagram(!includeDiagram)} />
 
-        <Toggle label="Exam Revision Mode" checked={includeChart} onChange={() => setIncludeChart(!includeChart)} />
+        <Toggle label="Include Charts" checked={includeChart} onChange={() => setIncludeChart(!includeChart)} />
       </div>
 
 

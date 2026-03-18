@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import TopicForm from "../components/TopicForm";
+import Sidebar from "../components/Sidebar";
+import FinalResult from "../components/FinalResult";
 
 function Notes() {
   const navigate = useNavigate();
@@ -11,6 +13,23 @@ function Notes() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState("")
+
+
+  // removeit
+// load on refresh
+useEffect(() => {
+  const saved = localStorage.getItem("notes_result")
+  if (saved) {
+    setResult(JSON.parse(saved))
+  }
+}, [])
+
+// save whenever result changes
+useEffect(() => {
+  if (result) {
+    localStorage.setItem("notes_result", JSON.stringify(result))
+  }
+}, [result])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 px-6 py-8">
@@ -77,6 +96,22 @@ flex items-center gap-2"
         <TopicForm loading={loading} setResult={setResult} setError={setError} setLoading={setLoading} />
       </motion.div>
 
+      {loading && (
+        <motion.div
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ repeat: Infinity, duration: 1.2 }}
+          className="text-center  text-black font-medium mb-6">
+          Generating exam-focused notes...
+        </motion.div>
+      )}
+
+      {error && (
+
+        <div className="mb-6 text-center text-red-600 font-medium">
+          {error}
+        </div>
+      )}
+
       {!result && <motion.div whileHover={{ scale: 1.02 }}
         className="
 h-64
@@ -92,6 +127,22 @@ shadow-inner
 
           Generated notes will appear here
         </p>
+      </motion.div>}
+
+      {result && <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="flec flex-col lg:grid lg:grid-cols-4 gap-6">
+
+        <div className="lg:col-span-1">
+          <Sidebar result={result} />
+        </div>
+
+        <div className="lg:col-span-3 rounded-2xl bg-white shadow-[0_15px_40px_rgba(0,0,0,0.15)] p-6">
+          <FinalResult result={result} />
+        </div>
+
       </motion.div>}
 
     </div>
