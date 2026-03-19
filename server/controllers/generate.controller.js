@@ -6,9 +6,6 @@ import { buildPrompt } from "../utils/promptBuilder.js"
 export const generateNotes = async (req, res) => {
     
     try {
-        console.log("BODY:", req.body)
-        console.log("USER:", req.userId)
-        
         const { topic,
             classLevel,
             examType,
