@@ -32,7 +32,7 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
         includeDiagram,
         includeChart
       })
-      setResult(result)
+      setResult(result.data)
 
       // finish progress properly
       setProgress(100)
