@@ -2,8 +2,7 @@
 ### 📚 Smart Notes | ⚡ Revision Mode | 📊 Diagrams & Charts | 💳 Stripe Integration  
 
 🔗 **Live Demo:**  
-👉 https://exam-notes-generator-client.onrender.com/auth  
-
+👉 https://exam-notes-generator-client.onrender.com
 ---
 
 ## 🧠 Overview  
