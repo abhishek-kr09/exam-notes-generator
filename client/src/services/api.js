@@ -18,7 +18,8 @@ export const generateNotes = async (payload) => {
         const result = await axios.post(serverUrl + "/api/notes/generate-notes", payload, { withCredentials: true })
         return result.data
     } catch (error) {
-        console.log(error)
+        console.log(error.response?.data) // 👈 ADD THIS
+        throw error
     }
 }
 

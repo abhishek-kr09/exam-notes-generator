@@ -32,7 +32,7 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
         includeDiagram,
         includeChart
       })
-      setResult(result.data)
+      setResult(result)
 
       // finish progress properly
       setProgress(100)
@@ -55,44 +55,44 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
 
 
     } catch (error) {
-      console.log(error)
-      setError("Failed to fetch notes from server");
+      console.log(error.response?.data)
+      setError(error.response?.data?.message || "Failed to fetch notes")
       setLoading(false)
     }
   }
 
   useEffect(() => {
-  if (!loading) {
-    setProgress(0)
-    setProgressText("")
-    return
-  }
-
-  let value = 0
-
-  const interval = setInterval(() => {
-    // speed decreases as progress increases
-    const remaining = 95 - value
-    const increment = remaining * 0.08  // key idea
-
-    value += increment
-
-    if (value >= 95) {
-      value = 95
-      setProgressText("Almost done...")
-    } else if (value > 70) {
-      setProgressText("Finalizing notes...")
-    } else if (value > 40) {
-      setProgressText("Processing content...")
-    } else {
-      setProgressText("Generating notes...")
+    if (!loading) {
+      setProgress(0)
+      setProgressText("")
+      return
     }
 
-    setProgress(Math.floor(value))
-  }, 300)
+    let value = 0
 
-  return () => clearInterval(interval)
-}, [loading])
+    const interval = setInterval(() => {
+      // speed decreases as progress increases
+      const remaining = 95 - value
+      const increment = remaining * 0.08  // key idea
+
+      value += increment
+
+      if (value >= 95) {
+        value = 95
+        setProgressText("Almost done...")
+      } else if (value > 70) {
+        setProgressText("Finalizing notes...")
+      } else if (value > 40) {
+        setProgressText("Processing content...")
+      } else {
+        setProgressText("Generating notes...")
+      }
+
+      setProgress(Math.floor(value))
+    }, 300)
+
+    return () => clearInterval(interval)
+  }, [loading])
 
   return (
     <motion.div
@@ -102,7 +102,7 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
 rounded-2xl
 bg-gradient-to-br
 backdrop-blur-2xl
-☐ from-black/90 ☐ via-black/80 ☐ to-black/90
+ from-black/90  via-black/80  to-black/90
 border border-white/10
 shadow-[0_25px 60px_rgba(0,0,0,0.75)]
 p-8
