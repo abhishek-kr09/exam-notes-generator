@@ -11,7 +11,7 @@ import Pricing from "./pages/Pricing";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailed from "./pages/PaymentFailed";
 
-export const serverUrl = "http://localhost:8080";
+export const serverUrl = "https://exam-notes-generator-server-qqeg.onrender.com";
 
 function App() {
   const dispatch=useDispatch()
