@@ -15,21 +15,21 @@ function Notes() {
   const [error, setError] = useState("")
 
 
-  // removeit
-// load on refresh
-useEffect(() => {
-  const saved = localStorage.getItem("notes_result")
-  if (saved) {
-    setResult(JSON.parse(saved))
-  }
-}, [])
+//   // removeit
+// // load on refresh
+// useEffect(() => {
+//   const saved = localStorage.getItem("notes_result")
+//   if (saved) {
+//     setResult(JSON.parse(saved))
+//   }
+// }, [])
 
-// save whenever result changes
-useEffect(() => {
-  if (result) {
-    localStorage.setItem("notes_result", JSON.stringify(result))
-  }
-}, [result])
+// // save whenever result changes
+// useEffect(() => {
+//   if (result) {
+//     localStorage.setItem("notes_result", JSON.stringify(result))
+//   }
+// }, [result])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 px-6 py-8">

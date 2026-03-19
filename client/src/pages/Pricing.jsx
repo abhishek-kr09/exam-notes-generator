@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from "motion/react";
+import axios from 'axios'
+import { serverUrl } from '../App'
 
 function Pricing() {
   const navigate = useNavigate()
@@ -12,7 +14,18 @@ function Pricing() {
     try {
       setPayingAmount(amount)
       setPaying(true)
+
+      const result=await axios.post(serverUrl+ "/api/credit/order",{amount},{withCredentials: true})
+
+      if(result.data.url){
+        window.location.href=result.data.url
+      }
+
+      setPaying(false)
+
     } catch (error) {
+      setPaying(fale)
+      console.log(error)
 
     }
   }
@@ -25,7 +38,7 @@ function Pricing() {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-10">
-        <h1 className="text-3x1 font-bold">Buy Credits</h1>
+        <h1 className="text-3xl font-bold">Buy Credits</h1>
         <p className="text-gray-600 mt-2">
           Choose a plan that fits your study needs I
         </p>
@@ -140,7 +153,7 @@ ${isSelected
       <p className='text-sm text-gray-500 mt-1'>{description}</p>
 
       <div className='mt-4'>
-        <p className="text-3x1 font-bold">{price}</p>
+        <p className="text-3xl font-bold">{price}</p>
         <p className="text-sm text-indigo-600">{credits}</p>
       </div>
       <button
